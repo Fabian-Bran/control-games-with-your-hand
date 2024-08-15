@@ -1,5 +1,5 @@
 # control-games-with-your-hand
- Uses mediapipe modual to interact with video games.
+ Uses mediapipe module to interact with video games.
 
  This was tuned for Counter-Strike however, it is quite easy to change the sensitivity and the distance required to move your palm away from the center. Adjusting the gesture controls may be slightly trickier, so I will leave the indexes for the different landmarks along with a image to use as a reference.
 
