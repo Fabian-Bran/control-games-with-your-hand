@@ -2,7 +2,9 @@ import cv2
 import mediapipe as mp
 import pyautogui
 import pydirectinput
+import mousecontrol
 
+mouse = mousecontrol.MouseControler
 
 mp_drawing=mp.solutions.drawing_utils
 mp_drawing_styles=mp.solutions.drawing_styles
@@ -67,14 +69,15 @@ while True:
         palm_y = ((middle_finger_mcp.y + wrist.y) /2)* img_h
 
         palm_distance = findDistanceFromCenter(palm_x,palm_y,midpoint)
+        print(palm_distance)
         thumb_index_tip_distance = findDistanceFromTarget(thumb_tip.x,thumb_tip.y,index_finger_tip)
 
         if thumb_index_tip_distance[0] < trigger_sensitivity and thumb_index_tip_distance[1] < trigger_sensitivity:
-            pyautogui.click()
+            mouse.mouse_click()
         elif palm_distance[0] > distance or palm_distance[0] < -abs(distance) or palm_distance[1] > distance or palm_distance[1] < -abs(distance):
-            mouse_x += palm_distance[0] / sensitivity
-            mouse_y += palm_distance[1] / sensitivity
-            pydirectinput.moveTo(int(mouse_x),int(mouse_y),relative=True,_pause=False)
+            mouse_x = palm_distance[0] / sensitivity
+            mouse_y = palm_distance[1] / sensitivity
+            mouse.move_mouse(x_offset=mouse_x,y_offset=mouse_y)
         else:
             pass
             
